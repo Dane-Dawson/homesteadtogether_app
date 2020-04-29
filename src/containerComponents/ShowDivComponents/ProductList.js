@@ -12,10 +12,14 @@ export default class ProductList extends Component {
       }
     }
 
+    listAllProducts = () => {
+        return this.props.allProducts.map(product =><ItemTile key={product.id} product={product}/>) 
+    }
     render() {
         return (
             <div>ProductList
-            <ItemTile />
+            {this.listAllProducts()}
+            
             
             </div>
         )

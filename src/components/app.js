@@ -8,7 +8,6 @@ import ShowDiv from "../containerComponents/ShowDiv";
 import SideBar from "../containerComponents/SideBar";
 import TopNav from "../containerComponents/TopNav";
 
-
 export default class App extends Component {
   constructor() {
     super();
@@ -16,6 +15,11 @@ export default class App extends Component {
     this.state = {
       loggedInStatus: "NOT_LOGGED_IN",
       user: {},
+      sideBarShow: "USER_SIDE_BAR",
+      showDivShow: "FARM_INFO",
+      userProducts: [],
+      allProducts: [],
+      filteredProducts: [],
     };
 
     // this.handleLogin=this.handleLogin.bind(this)
@@ -49,8 +53,18 @@ export default class App extends Component {
       });
   };
 
+  //Fetch all products to be listed
+  //CHANGE this still needs the proper fetch to the proper source
+  fetchAllProducts = () => {
+    // axios.get("http://localhost:3001/products", { withCredentials: true } )
+    fetch("http://localhost:3001/products")
+      .then((response) => response.json())
+      .then((allProducts) => this.setState({ allProducts }));
+  };
+
   componentDidMount() {
     this.checkLoginStatus();
+    this.fetchAllProducts();
   }
 
   handleLogout = () => {
@@ -67,6 +81,48 @@ export default class App extends Component {
     });
   };
 
+  setShowDiv = (showDivState) => {
+    this.setState({ showDivShow: showDivState });
+  };
+  //Only shows the side bar and showdiv if the user is logged in
+  renderShowIfLoggedIn = () => {
+    if (this.state.loggedInStatus === "LOGGED_IN") {
+      return (
+        <div>
+          {/* <TopNav /> */}
+          <div className="ui divider"></div>
+          <SideBar
+            setShowDiv={this.setShowDiv}
+            sideBarShow={this.state.sideBarShow}
+          />
+          <ShowDiv
+            setShowDiv={this.setShowDiv}
+            handleLogin={this.handleLogin}
+            user={this.state.user}
+            allProducts={this.state.allProducts}
+            userProducts={this.state.userProducts}
+            sideBarShow={this.state.sideBarShow}
+            showDivShow={this.state.showDivShow}
+          />
+        </div>
+      );
+    }
+  };
+
+  showUserSideBar = () => {
+    this.setState({
+      sideBarShow: "USER_SIDE_BAR",
+      showDivShow: "FARM_INFO",
+    });
+  };
+
+  showProductSideBar = () => {
+    this.setState({
+      sideBarShow: "PRODUCT_SIDE_BAR",
+      showDivShow: "PRODUCT_LIST",
+    });
+  };
+
   render() {
     return (
       <div className="app">
@@ -78,6 +134,8 @@ export default class App extends Component {
               render={(props) => (
                 <Home
                   {...props}
+                  showUserSideBar={this.showUserSideBar}
+                  showProductSideBar={this.showProductSideBar}
                   handleLogin={this.handleLogin}
                   handleLogout={this.handleLogout}
                   loggedInStatus={this.state.loggedInStatus}
@@ -91,6 +149,7 @@ export default class App extends Component {
                 <Dashboard
                   {...props}
                   loggedInStatus={this.state.loggedInStatus}
+                  handleLogout={this.handleLogout}
                 />
               )}
             />{" "}
@@ -98,10 +157,7 @@ export default class App extends Component {
           </Switch>
         </BrowserRouter>
         <h1> {this.state.user.email} is logged in!</h1>
-        <TopNav />
-        <div class="ui divider"></div>
-        <SideBar />
-        <ShowDiv />
+        {this.renderShowIfLoggedIn()}
       </div>
     );
   }

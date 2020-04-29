@@ -8,14 +8,24 @@ export default class SideBar extends Component {
     this.state = {};
   }
 
+  renderShowDiv = () => {
+    if (this.props.sideBarShow === "USER_SIDE_BAR"){
+      return (
+        <UserSideBar 
+          setShowDiv={this.props.setShowDiv}
+        />
+      )
+    } else if (this.props.sideBarShow === "PRODUCT_SIDE_BAR"){
+      return (
+        <ProductSideBar />
+      )
+    }
+  }
   render() {
     return (
       <div>
         <h2>SideBar</h2>
-        <ul>
-        <li><UserSideBar /></li>
-        <li><ProductSideBar /></li>
-        </ul>
+        {this.renderShowDiv()}
       </div>
     );
   }

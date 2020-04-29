@@ -20,12 +20,14 @@ export default class ItemTile extends Component {
       return (
         <div>
           <button class="ui secondary button" onClick={this.toggleShowDetailsState}> Hide Details! </button>
+          {console.log(this.props.product.name)}
           <ItemDetails />
         </div>
       );
     } else {
       return (
         <div>
+        {/* {this.props.product.name} */}
           <button class="ui primary button" onClick={this.toggleShowDetailsState}> Show Details! </button>
         </div>
       );
@@ -35,7 +37,7 @@ export default class ItemTile extends Component {
   render() {
     return (
       <div>
-        ItemTile
+        <h1>{this.props.product.name}</h1>
         {this.showDetails()}
       </div>
     );
