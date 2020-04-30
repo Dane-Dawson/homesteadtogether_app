@@ -20,6 +20,7 @@ export default class App extends Component {
       userProducts: [],
       allProducts: [],
       filteredProducts: [],
+      rawProducts: [],
     };
 
     // this.handleLogin=this.handleLogin.bind(this)
@@ -55,16 +56,25 @@ export default class App extends Component {
 
   //Fetch all products to be listed
   //CHANGE this still needs the proper fetch to the proper source
+  //second fetch sets the current raw product list for userProduct creation
   fetchAllProducts = () => {
     // axios.get("http://localhost:3001/products", { withCredentials: true } )
-    fetch("http://localhost:3001/products")
+    fetch("http://localhost:3001/user_products")
       .then((response) => response.json())
       .then((allProducts) => this.setState({ allProducts }));
-  };
+
+    };
+    
+    fetchRawProducts = () => {
+      fetch("http://localhost:3001/products")
+        .then((response) => response.json())
+        .then((rawProducts) => this.setState({ rawProducts }));
+  }
 
   componentDidMount() {
     this.checkLoginStatus();
     this.fetchAllProducts();
+    this.fetchRawProducts();
   }
 
   handleLogout = () => {
@@ -96,6 +106,7 @@ export default class App extends Component {
             sideBarShow={this.state.sideBarShow}
           />
           <ShowDiv
+          rawProducts={this.state.rawProducts}
             setShowDiv={this.setShowDiv}
             handleLogin={this.handleLogin}
             user={this.state.user}

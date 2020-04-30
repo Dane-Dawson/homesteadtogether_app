@@ -4,7 +4,7 @@ import FarmInfo from "./ShowDivComponents/FarmInfo";
 import MessageList from "./ShowDivComponents/MessageList";
 import PartnershipList from "./ShowDivComponents/PartnershipList";
 import ProductList from "./ShowDivComponents/ProductList";
-import CreateProduct from "./ShowDivComponents/CreateProduct";
+import AddProduct from "./ShowDivComponents/AddProduct";
 
 export default class ShowDiv extends Component {
   constructor(props) {
@@ -38,7 +38,9 @@ export default class ShowDiv extends Component {
     } else if (this.props.showDivShow === "MESSAGE_LIST") {
       return <MessageList />;
     } else if (this.props.showDivShow === "CREATE_PRODUCT") {
-        return <CreateProduct user={this.props.user} />;
+        return <AddProduct 
+        rawProducts={this.props.rawProducts}
+        user={this.props.user} />;
       }
   };
 
