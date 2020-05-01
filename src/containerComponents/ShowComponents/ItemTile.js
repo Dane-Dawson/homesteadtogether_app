@@ -9,26 +9,27 @@ export default class ItemTile extends Component {
     };
   }
 
+  //toggle show field for ItemDetails tile
   toggleShowDetailsState = () => {
     let showDetails = this.state.showDetails;
     showDetails = !showDetails;
     this.setState({ showDetails });
   };
 
-  showDetails = () => {
+  //button render for details
+  showDetailsButton = () => {
     if (this.state.showDetails === true) {
       return (
         <div>
-          <button class="ui secondary button" onClick={this.toggleShowDetailsState}> Hide Details! </button>
-          {console.log(this.props.product.name)}
-          <ItemDetails />
+          <button className="ui secondary button" onClick={this.toggleShowDetailsState}> Hide Details! </button>
+          <ItemDetails product={this.props.product}/>
         </div>
       );
     } else {
       return (
         <div>
         {/* {this.props.product.name} */}
-          <button class="ui primary button" onClick={this.toggleShowDetailsState}> Show Details! </button>
+          <button className="ui primary button" onClick={this.toggleShowDetailsState}> Show Details! </button>
         </div>
       );
     }
@@ -37,8 +38,8 @@ export default class ItemTile extends Component {
   render() {
     return (
       <div>
-        <h1>{this.props.product.name}</h1>
-        {this.showDetails()}
+        <h1>{this.props.product.product.name}</h1>
+        {this.showDetailsButton()}
       </div>
     );
   }
