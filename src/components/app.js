@@ -106,6 +106,7 @@ export default class App extends Component {
             sideBarShow={this.state.sideBarShow}
           />
           <ShowDiv
+          fetchRawProducts={this.fetchRawProducts}
           rawProducts={this.state.rawProducts}
             setShowDiv={this.setShowDiv}
             handleLogin={this.handleLogin}

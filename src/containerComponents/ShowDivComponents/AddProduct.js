@@ -13,6 +13,7 @@ export default class AddProduct extends Component {
       description: "",
       tags: "",
       user_id: "",
+      origins: [],
       categories: [
         "Poultry",
         "Produce",
@@ -32,13 +33,21 @@ export default class AddProduct extends Component {
     event.preventDefault();
     // const { product, origin, category, description, img_src, ftags, user_id, city, name } = this.state;
     const userProductObject = {
-      product: this.state.product,
-      origin: this.state.origin,
-      category: this.state.category,
+      product_id: this.state.product.id,
       description: this.state.description,
       tags: this.state.tags,
       img_src: this.state.img_src,
+      user_id: this.props.user.id
     };
+    fetch("http://localhost:3001/user_products", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json;charset=utf-8",
+        },
+        body: JSON.stringify(userProductObject),
+      });
+      window.alert("Product submitted!")
+
   };
 
   //conditioally render of list of all previously created products fed from app state rawProducts, or toggle the form to create a new product if it's not listed
@@ -47,6 +56,7 @@ export default class AddProduct extends Component {
       return (
         <form>
           <select value={this.state.value} onChange={this.handleProductSelect}>
+            <option>Select From below!</option>
             {this.props.rawProducts.map((product) => {
               let productName = `${product.name}: ${product.origin.name}`;
               return (
@@ -88,27 +98,46 @@ export default class AddProduct extends Component {
             />
             <br></br>
             <p>
-              Origin is where the item/service came from. Eggs might come from
-              "Chicken" or "Duck".
+              Origin is where the item/service came from. Choose from ours
+              below!
             </p>
-            <input
+            <select value={this.state.value} onChange={this.handleOriginSelect}>
+              <option>Select Origin from below!</option>
+              {this.state.origins.map((origin) => {
+                return (
+                  <option
+                    key={origin.id}
+                    value={origin.name}
+                    name={origin.name}
+                  >
+                    {origin.name}
+                  </option>
+                );
+              })}
+            </select>
+            {/* <input
               type="origin"
               name="origin"
               placeholder="Product origin"
               value={this.state.origin}
               onChange={this.handleChange}
               required
-            />
+            /> */}
             <br></br>
             <p>Choose from one of our categories below</p>
             <select
               value={this.state.value}
               onChange={this.handleCategorySelect}
             >
+              <option>Select Category from below!</option>
               {this.state.categories.map((category) => {
                 return (
-                  <option key={category} value={category} name={category}>
-                    {category}
+                  <option
+                    key={category.id}
+                    value={category.name}
+                    name={category.name}
+                  >
+                    {category.name}
                   </option>
                 );
               })}
@@ -118,47 +147,113 @@ export default class AddProduct extends Component {
               After adding to the database you can choose your option from the
               drop down
             </p>
-            <button type="submit">Add product to database!</button>
+            <button type="submit" onClick={() => this.processNewProduct()}>
+              Add product to database!
+            </button>
           </form>
         </div>
       );
     }
   };
+  ///SET  BASE STATES ON COMPONENT MOUNT
+
+  componentDidMount() {
+    this.fetchCategories();
+    this.fetchOrigins();
+  }
+
+  fetchCategories = () => {
+    fetch("http://localhost:3001/categories")
+      .then((response) => response.json())
+      .then((categories) => this.setState({ categories }));
+  };
+
+  fetchOrigins = () => {
+    fetch("http://localhost:3001/origins")
+      .then((response) => response.json())
+      .then((origins) => this.setState({ origins }));
+  };
+
   ///HELPER FUNCTIONS
 
   //CHANGE
   //need to update to set all states based off product given
   //When choosing a product from the drop down, it sets state accordingly for useProduct post request
   handleProductSelect = (event) => {
-
     let targetValue = parseInt(event.target.value, 10);
     let productArray = this.props.rawProducts;
     let found = productArray.find((product) => product.id === targetValue);
-    console.log(found)
-    let product = found.name
+    console.log(found);
+    console.log(found.category);
+    let product = found.name;
     this.setState({
-      product: event.target.value,
-      //   category: event.target.category.name,
-      //   origin: event.target.origin.name,
+      product: found,
+      category: found.category,
+      origin: found.origin,
+    });
+  };
+
+  handleOriginSelect = (event) => {
+    let targetValue = event.target.value;
+    let originArray = this.state.origins;
+    let found = originArray.find((origin) => origin.name === targetValue);
+    this.setState({
+      origin: found,
     });
   };
   //set state of category from dropdown menu
   handleCategorySelect = (event) => {
+    let targetValue = event.target.value;
+    let categoryArray = this.state.categories;
+    let found = categoryArray.find((category) => category.name === targetValue);
     this.setState({
-      category: event.target.value,
+      category: found,
     });
   };
 
   //Toggles if the selection dropdown is visible or if the create product dropdown
   toggleRawProducts = () => {
-    console.log("works?");
+    console.log("works??");
     let showRawProducts = !this.state.showRawProducts;
     this.setState({ showRawProducts });
   };
 
-  //Currently useless
-  loadRawProductDataIntoForm = (event) => {
-    console.log(event.target);
+  //process new product by adding it to database and setting background states for form submission for new UserProduct
+  processNewProduct = () => {
+    this.addProductToDatabase();
+    //   this.loadRawProductDataIntoForm()
+  };
+
+  //add product to databse
+  addProductToDatabase = () => {
+    fetch("http://localhost:3001/products", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify({
+        name: this.state.product,
+        origin_id: this.state.origin.id,
+        category_id: this.state.category.id,
+      }),
+    });
+    this.props.fetchRawProducts
+    this.setState({
+        product: {
+            name:this.state.product,
+            id: this.props.rawProducts.length+1
+        }
+    })
+    window.alert("Product has been added!")
+  };
+  //Put new product into form
+  loadRawProductDataIntoForm = () => {
+    this.setState({
+      product: event.target.product,
+      origin: event.target.origin,
+      category: event.target.category,
+    });
+    // console.log(event.target);
   };
 
   //Sets state for each of the form entry fields
@@ -214,7 +309,7 @@ export default class AddProduct extends Component {
             type="img_src"
             name="img_src"
             placeholder="URL of image"
-            value={this.state.origin}
+            value={this.state.img_src}
             onChange={this.handleChange}
             required
           />
@@ -229,7 +324,9 @@ export default class AddProduct extends Component {
             required
           />
           <br></br>
-          <button type="submit">Add product to your farm!</button>
+          <button type="submit" onClick={() => this.submitUserProduct()}>
+            Add product to your farm!
+          </button>
         </form>
       </div>
     );

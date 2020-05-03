@@ -5,6 +5,8 @@ import Login from "./auth/Login";
 
 import FarmIcon from "../images/farmIcon.png";
 import ChickenIcon from "../images/chickenIcon.png";
+import landingLogo from "../images/landingLogo.png";
+
 
 export default class Home extends Component {
   constructor(props) {
@@ -22,7 +24,20 @@ export default class Home extends Component {
   chickenIcon = () => (
     <img src={ChickenIcon} height="100px" alt="chickenIcon" onClick={() => this.props.showProductSideBar()}></img>
   );
-  
+
+  renderLogo = () => {
+    if (this.props.loggedInStatus === "LOGGED_IN"){
+        return <img src={landingLogo} height="50px"></img>
+    } else {
+        return (
+            <div>
+        <img src={landingLogo}></img>
+        <p>A community seeking for those who grow, raise, or make their own goods to share and exchange with other like minded people.</p>
+        </div>
+        )
+    }
+  }
+
   handleSuccessfulAuth = (data) => {
     this.props.handleLogin(data);
     // this.props.history.push("/dashboard");
@@ -49,7 +64,6 @@ export default class Home extends Component {
     if (this.props.loggedInStatus === "LOGGED_IN") {
       return (
         <div>
-          <h1>Homestead Together</h1>
           {this.chickenIcon()}
           {this.farmIcon()}
           <br></br>
@@ -60,15 +74,17 @@ export default class Home extends Component {
       if (this.state.showDiv === "SIGN_IN") {
         return (
           <div>
+          <br></br>
             <button onClick={() => this.toggleShowDiv()}>
               Toggle Signup/Login
             </button>
             <Login handleSuccessfulAuth={this.handleSuccessfulAuth} />
           </div>
         );
-      } else {
+    } else {
         return (
-          <div>
+            <div>
+            <br></br>
             <button onClick={() => this.toggleShowDiv()}>
               Toggle Signup/Login
             </button>
@@ -90,11 +106,9 @@ export default class Home extends Component {
   render() {
     return (
       <div>
+        {this.renderLogo()}
         {this.handleDisplay()}
         <h6>Status: {this.props.loggedInStatus}</h6>
-        {/* <button onClick={() => this.handleLogoutClick()}>Logout</button>
-        <Registration handleSuccessfulAuth={this.handleSuccessfulAuth} />
-        <Login handleSuccessfulAuth={this.handleSuccessfulAuth} /> */}
       </div>
     );
   }

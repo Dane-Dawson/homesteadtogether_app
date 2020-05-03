@@ -39,6 +39,7 @@ export default class ShowDiv extends Component {
       return <MessageList />;
     } else if (this.props.showDivShow === "CREATE_PRODUCT") {
         return <AddProduct 
+        fetchRawProducts={this.props.fetchRawProducts}
         rawProducts={this.props.rawProducts}
         user={this.props.user} />;
       }

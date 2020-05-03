@@ -1,6 +1,17 @@
 import React, { Component } from "react";
 import ItemDetails from "./ItemDetails";
 
+import categoryDairy from "./categoryImages/categoryDairy.png";
+import categoryFiber from "./categoryImages/categoryFiber.png";
+import categoryGuidance from "./categoryImages/categoryGuidance.png";
+import categoryHandmade from "./categoryImages/categoryHandmade.png";
+import categoryInfrastructure from "./categoryImages/categoryInfrastructure.png";
+import categoryLivestock from "./categoryImages/categoryLivestock.png";
+import categoryOther from "./categoryImages/categoryOther.png";
+import categoryPoultry from "./categoryImages/categoryPoultry.png";
+import categoryPreserves from "./categoryImages/categoryPreserves.png";
+import categoryProduce from "./categoryImages/categoryProduce.png";
+
 export default class ItemTile extends Component {
   constructor(props) {
     super(props);
@@ -16,7 +27,7 @@ export default class ItemTile extends Component {
     this.setState({ showDetails });
   };
 
-  //button render for details
+  //button render for details that toggles display based on state
   showDetailsButton = () => {
     if (this.state.showDetails === true) {
       return (
@@ -38,6 +49,7 @@ export default class ItemTile extends Component {
   render() {
     return (
       <div>
+      <img src={categoryPoultry} height="30px"></img>
         <h1>{this.props.product.product.name}</h1>
         {this.showDetailsButton()}
       </div>
