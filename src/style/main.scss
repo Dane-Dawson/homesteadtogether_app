@@ -1,28 +1,352 @@
 html {
-    font-size: 62.5%; // 1rem is 10px
+  font-size: 62.5%; // 1rem is 10px
 }
 
 *,
 *::after,
 *::before {
-    margin: 0;
-    padding: 0;
-    box-sizing: inherit;
-    font-family: 'montserrat';
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+  font-family: "montserrat";
 }
 
 body {
-    overflow-x: hidden;
-    font-weight: normal;
+  background-image: url("../images/background.jpg");
+  background-attachment: fixed;
+  background-size: cover;
+  color: #464646;
+  overflow-x: hidden;
+  font-weight: normal;
 
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-    -webkit-tap-highlight-color: transparent;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  -webkit-tap-highlight-color: transparent;
 }
 
 .app {
-    margin-top: 2rem;
-    display: grid;
-    justify-items: center;
+  margin-top: 2rem;
+  display: grid;
+  justify-items: center;
+}
+​ h1,
+h2,
+h3 {
+  font-family: "kameron";
+  color: #5b4e46;
+}
+h1.farmname {
+  font-size: 60px;
+}
+h2.loginlink {
+  color: #a4cde8;
+}
+h3.productbar {
+  color: #f5ffc6;
+  font-size: 20px;
+}
+
+#maintable {
+  background-color: #e8e8e8;
+  padding: 0px;
+  opacity: 90%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  min-width: 700px;
+  max-width: 900px;
+  max-height: 383px;
+  min-height: 383px;
+}
+
+#sidebar {
+  width: 20%;
+  min-width: 75px;
+  max-width: 125px;
+  background-color: #5b4e46;
+  text-align: center;
+  vertical-align: text-top;
+  padding: 30px;
+  font-size: xx-large;
+  font-family: "kameron";
+  color: whitesmoke;
+}
+
+​ #content {
+  margin-left: 20px;
+  margin: 30px;
+  padding: 10px 10px 10px 10px;
+  font-size: large;
+  opacity: 90%;
+  font-family: "montserrat", sans-serif;
+}
+
+table.topbar {
+  background-color: #e8e8e8;
+  padding: 0px;
+  opacity: 90%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 75%;
+  min-width: 700px;
+  max-width: 900px;
+}
+
+.logo {
+  width: 60%;
+  min-width: 700px;
+  max-width: 900px;
+  display: block;
+  margin-top: 100px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.centerstyle {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+.logolanding {
+  width: 90%;
+  min-width: 400px;
+  max-width: 900px;
+  display: block;
+  margin-top: 80px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.landingmessage {
+  text-align: center;
+  min-width: 400px;
+  max-width: 900px;
+  display: block;
+  font-family: "kameron";
+  color: #5b4e46;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.productpicture {
+  width: 150px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.producttiletable {
+  width: 400px;
+  text-align: center;
+  padding: 5px;
+  border-radius: 3px;
+  border: 1px solid #5b4e46;
+  // display: block;
+  margin-left: auto;
+  margin-right: auto;
+  vertical-align: text-top;
+  background-color: white;
+}
+
+.productdetails {
+  width: 100px;
+  padding: 5px;
+  box-shadow: 0 1px 1px 0 #5b4e46, 0 1px 1px 0 #5b4e46;
+}
+
+.reportbutton {
+  width: 100px;
+  padding: 5px;
+  box-shadow: 0 1px 1px 0 #5b4e46, 0 1px 1px 0 #5b4e46;
+}
+
+.reportsubmit {
+  width: 100px;
+  padding: 5px;
+  box-shadow: 0 1px 1px 0 #5b4e46, 0 1px 1px 0 #5b4e46;
+}
+
+button {
+  background-color: #bbc8ca;
+  border-radius: 3px;
+  padding: 10px;
+  width: 70px;
+  opacity: 98%;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button#productcategoryselect {
+  background-color: #bbc8ca;
+  border-radius: 3px;
+  padding: 2px;
+  width: 100px;
+  opacity: 99%;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button.addproduct {
+  background-color: #a4cde8;
+  border-radius: 3px;
+  border: 2px #5b4e46;
+  padding: 5px;
+  width: 180px;
+  opacity: 98%;
+  //   border: 2px;
+  //   border-color: #5b4e46;
+  box-shadow: 0 1px 1px 0 #5b4e46, 0 1px 1px 0 #5b4e46;
+}
+
+button.loginlink {
+  background-color: #a4cde8;
+  border-radius: 3px;
+  // border: 2px solid whitesmoke;
+  padding: 5px;
+  width: 180px;
+  opacity: 98%;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button.loginbutton {
+  background-color: #f5ffc6;
+  border-radius: 3px;
+  // border: 2px solid whitesmoke;
+  padding: 5px;
+  width: 180px;
+  opacity: 98%;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button.updatefarm {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  background-color: #a4cde8;
+  border-radius: 3px;
+  border: 2px #5b4e46;
+  padding: 5px;
+  width: 180px;
+  opacity: 98%;
+  //   border: 2px;
+  //   border-color: #5b4e46;
+  box-shadow: 0 1px 1px 0 #5b4e46, 0 1px 1px 0 #5b4e46;
+}
+
+button.topbutton {
+  background-color: #a4cde8;
+  border-radius: 3px;
+  text-align: center;
+  color: #5b4e46;
+  font-style: oblique;
+  font-size: 15px;
+  font-weight: bold;
+  // border: 2px solid whitesmoke;
+  padding: 5px;
+  width: 280px;
+  opacity: 98%;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button.logout {
+  background-color: #5b4e46;
+  color: whitesmoke;
+  border-radius: 3px;
+  text-align: center;
+  font-size: 20px;
+  padding: 5px;
+  width: 93px;
+  opacity: 98%;
+  box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button.deleteaccount {
+  display: block;
+  margin-left: auto;
+  margin-right: 0;
+  text-align: center;
+  background-color: #f5ffc6;
+  border-radius: 3px;
+  // border: 2px solid whitesmoke;
+  padding: 5px;
+  width: 180px;
+  opacity: 98%;
+  box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+}
+
+button.toggleinactive {
+  background-color: #aafac8;
+  border-radius: 3px;
+  // border: 2px solid whitesmoke;
+  padding: 5px;
+  width: 80px;
+  opacity: 60%;
+  box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+}
+
+button.toggleactive {
+  background-color: #bbc8ca;
+  border-radius: 3px;
+  // border: 2px solid whitesmoke;
+  padding: 5px;
+  width: 80px;
+  opacity: 60%;
+  box-shadow: 0 1px 11px 0 rgba(0, 0, 0, 0.2), 0 1px 1px 0 rgba(0, 0, 0, 0.19);
+}
+
+form {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+}
+
+form.editform {
+  display: inline-block;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: left;
+}
+
+div.form {
+  display: block;
+  text-align: center;
+}
+
+div.loginform {
+  border: 2px solid #5b4e46;
+  border-radius: 5px;
+  display: block;
+  text-align: center;
+  margin: auto;
+  width: 30%;
+  padding: 10px;
+  background-color: #e8e8e8;
+  opacity: 90%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+select {
+  width: 100%;
+  padding: 16px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: #a4cde8;
+}
+
+input * {
+  border: 2px solid #a4cde8;
+  border-radius: 2px;
+}
+
+ul {
+  list-style-type: circle;
+  font-size: 15px;
 }

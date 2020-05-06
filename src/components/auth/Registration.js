@@ -60,9 +60,10 @@ export default class Registration extends Component {
 
   render() {
     return (
-      <div>
+      <div className="loginform">
+      
         <h2>Fill out the form below to register for a new account</h2>
-        <p>Email and password are required</p>
+        <p>Email and password are required and both case sensitive</p>
         <form onSubmit={this.handleSubmit}>
           <input
             type="email"
@@ -97,7 +98,6 @@ export default class Registration extends Component {
             placeholder="Full Name (optional)"
             value={this.state.name}
             onChange={this.handleChange}
-            required
           />
           <br></br>
           <input
@@ -106,7 +106,6 @@ export default class Registration extends Component {
             placeholder="URL of profile picture (optional)"
             value={this.state.avatar_src}
             onChange={this.handleChange}
-            required
           />
           <br></br>
           <input
@@ -115,7 +114,6 @@ export default class Registration extends Component {
             placeholder="Farm Name (optional)"
             value={this.state.farm_name}
             onChange={this.handleChange}
-            required
           />
           <br></br>
           <input
@@ -124,7 +122,6 @@ export default class Registration extends Component {
             placeholder="Street Address (optional)"
             value={this.state.street_address}
             onChange={this.handleChange}
-            required
           />
           <br></br>
           <input
@@ -133,7 +130,6 @@ export default class Registration extends Component {
             placeholder="City (optional)"
             value={this.state.city}
             onChange={this.handleChange}
-            required
           />
           <br></br>
           <input
@@ -142,11 +138,16 @@ export default class Registration extends Component {
             placeholder="Zip Code (optional)"
             value={this.state.zip_code}
             onChange={this.handleChange}
-            required
           />
           <br></br>
-          <button type="submit">Register</button>
+          <button type="submit" className="loginbutton">Register</button>
+          <br></br>
         </form>
+        <br></br>
+        <br></br>
+        <h2 >Want to sign in instead?</h2>
+          <button onClick={() => this.props.toggleShowDiv()} className="loginlink">Click here!</button>
+          <br></br>
       </div>
     );
   }

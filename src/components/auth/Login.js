@@ -19,10 +19,10 @@ export default class Login extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
-  }
+  };
 
   handleSubmit = (event) => {
-      event.preventDefault();
+    event.preventDefault();
     const { email, password } = this.state;
     axios
       .post(
@@ -30,25 +30,25 @@ export default class Login extends Component {
         {
           user: {
             email: email,
-            password: password
-          }
+            password: password,
+          },
         },
         { withCredentials: true }
       )
-      .then(response => {
+      .then((response) => {
         if (response.data.logged_in) {
           this.props.handleSuccessfulAuth(response.data);
         }
       })
-      .catch(error => {
+      .catch((error) => {
         console.log("login error", error);
       });
-    event.preventDefault();
-  }
+      this.props.setShowDiv("FARM_INFO")
+  };
 
   render() {
     return (
-      <div>
+      <div className="loginform">
         <form onSubmit={this.handleSubmit}>
           <input
             type="email"
@@ -58,7 +58,7 @@ export default class Login extends Component {
             onChange={this.handleChange}
             required
           />
-
+          <br></br>
           <input
             type="password"
             name="password"
@@ -67,10 +67,14 @@ export default class Login extends Component {
             onChange={this.handleChange}
             required
           />
-
-
-          <button type="submit">Login</button>
+          <br></br>
+          <br></br>
+          <button type="submit" className="loginbutton">Login</button>
+          <br></br>
+          <br></br>
         </form>
+          <h2 >Don't have an account?</h2>
+          <button onClick={() => this.props.toggleShowDiv()} className="loginlink">Register here!</button>
       </div>
     );
   }

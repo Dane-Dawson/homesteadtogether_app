@@ -17,14 +17,16 @@ export default class SideBar extends Component {
       )
     } else if (this.props.sideBarShow === "PRODUCT_SIDE_BAR"){
       return (
-        <ProductSideBar />
+        <ProductSideBar
+        filterProductByCategory={this.props.filterProductByCategory}
+        setFilterCategory={this.props.setFilterCategory}
+         />
       )
     }
   }
   render() {
     return (
-      <div>
-        <h2>SideBar</h2>
+      <div className="sidebar">
         {this.renderShowDiv()}
       </div>
     );

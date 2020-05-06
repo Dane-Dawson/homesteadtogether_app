@@ -37,7 +37,9 @@ export default class ItemDetails extends Component {
               value={this.state.flagMessage}
             ></textarea>
             <br></br>
-            <button type="submit">Submit report</button>
+            <button className="reportsubmit" type="submit">
+              Submit report
+            </button>
           </form>
         </div>
       );
@@ -63,20 +65,35 @@ export default class ItemDetails extends Component {
   render() {
     return (
       <div>
-        <img
-          src={this.props.product.img_src}
-          height="100px"
-          alt={this.props.product.description}
-        ></img>
-
-        <h3>Description:</h3>
-        <br></br>
-        <p>{this.props.product.description}</p>
-        <h3>Sourced from:</h3>
-        <p>{this.props.product.user.city}</p>
-        {this.renderActiveState()}
-        <button onClick={() => this.toggleMessage()}>Report listing</button>
-        {this.showFlagMessage()}
+        <table>
+          <thead>
+            <tr>
+              <th>
+                <img
+                  src={this.props.product.img_src}
+                  width="200px"
+                  alt={this.props.product.description}
+                ></img>
+              </th>
+              <th>
+                <p>{this.props.product.description}</p>
+                <h3>Sourced from:</h3>
+                <p>{this.props.product.user.city}</p>
+                {this.renderActiveState()}
+                <br></br>
+                <p>If you are interested, email at</p>
+                <p>{this.props.product.user.email}</p>
+                <button
+                  className="reportbutton"
+                  onClick={() => this.toggleMessage()}
+                >
+                  Report listing
+                </button>
+                {this.showFlagMessage()}
+              </th>
+            </tr>
+          </thead>
+        </table>
       </div>
     );
   }

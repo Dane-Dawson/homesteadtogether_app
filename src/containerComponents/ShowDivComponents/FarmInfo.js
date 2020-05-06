@@ -15,9 +15,9 @@ export default class FarmInfo extends Component {
 
     render() {
         return (
-            <div style={centerStyle} >FarmInfo
+            <div >
             <p>Welcome to</p>
-            <h1>{this.props.user.farm_name}!</h1>
+            <h1 className="farmname">{this.props.user.farm_name}!</h1>
             <p>Owned and operated by {this.props.user.name}</p>
 
             <p>Your address is stored privately and will never be shared without your permission</p>

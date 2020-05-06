@@ -21,11 +21,30 @@ export default class App extends Component {
       allProducts: [],
       filteredProducts: [],
       rawProducts: [],
+      filterCategory: "ALL",
     };
 
     // this.handleLogin=this.handleLogin.bind(this)
     // this.handleLogout=this.handleLogout.bind(this)
   }
+
+  filterProductByCategory = (categoryName) => {
+    if (categoryName === "ALL") {
+      this.setState({
+        filteredProducts: this.state.allProducts,
+      });
+    } else {
+      let allProducts = this.state.allProducts;
+      let filteredProducts = allProducts.filter(
+        (product) => product.category.name === categoryName
+      );
+      this.setState({ filteredProducts });
+    }
+  };
+
+  setFilterCategory = (categoryName) => {
+    this.setState({ filterCategory: categoryName });
+  };
 
   checkLoginStatus = () => {
     axios
@@ -61,21 +80,32 @@ export default class App extends Component {
     // axios.get("http://localhost:3001/products", { withCredentials: true } )
     fetch("http://localhost:3001/user_products")
       .then((response) => response.json())
-      .then((allProducts) => this.setState({ allProducts }));
+      .then((allProducts) =>
+        this.setState({ allProducts, filteredProducts: allProducts })
+      );
+  };
 
-    };
-    
-    fetchRawProducts = () => {
-      fetch("http://localhost:3001/products")
-        .then((response) => response.json())
-        .then((rawProducts) => this.setState({ rawProducts }));
-  }
+  fetchRawProducts = () => {
+    fetch("http://localhost:3001/products")
+      .then((response) => response.json())
+      .then((rawProducts) => this.setState({ rawProducts }));
+  };
 
   componentDidMount() {
     this.checkLoginStatus();
     this.fetchAllProducts();
     this.fetchRawProducts();
   }
+
+  //filter user_products owned by user into array
+  sortUserProductsOwned = () => {
+    let allProducts = this.state.allProducts;
+    let userId = this.state.user.id;
+    let userProducts = allProducts.filter(
+      (product) => product.user.id === userId
+    );
+    this.setState({ userProducts });
+  };
 
   handleLogout = () => {
     this.setState({
@@ -99,23 +129,39 @@ export default class App extends Component {
     if (this.state.loggedInStatus === "LOGGED_IN") {
       return (
         <div>
-          {/* <TopNav /> */}
-          <div className="ui divider"></div>
-          <SideBar
-            setShowDiv={this.setShowDiv}
-            sideBarShow={this.state.sideBarShow}
-          />
-          <ShowDiv
-          fetchRawProducts={this.fetchRawProducts}
-          rawProducts={this.state.rawProducts}
-            setShowDiv={this.setShowDiv}
-            handleLogin={this.handleLogin}
-            user={this.state.user}
-            allProducts={this.state.allProducts}
-            userProducts={this.state.userProducts}
-            sideBarShow={this.state.sideBarShow}
-            showDivShow={this.state.showDivShow}
-          />
+          <table className="maintable" id="maintable">
+            <tbody>
+              <tr>
+                <td className="sidebar" id="sidebar">
+                  <SideBar
+                    filterProductByCategory={this.filterProductByCategory}
+                    setFilterCategory={this.setFilterCategory}
+                    setShowDiv={this.setShowDiv}
+                    sideBarShow={this.state.sideBarShow}
+                  />
+                </td>
+                <td className="content" id="content">
+                  <ShowDiv
+                    setFilterCategory={this.setFilterCategory}
+                    sortUserProductsOwned={this.sortUserProductsOwned}
+                    filterCategory={this.state.filterCategory}
+                    fetchAllProducts={this.fetchAllProducts}
+                    fetchRawProducts={this.fetchRawProducts}
+                    rawProducts={this.state.rawProducts}
+                    setShowDiv={this.setShowDiv}
+                    handleLogout={this.handleLogout}
+                    handleLogin={this.handleLogin}
+                    user={this.state.user}
+                    filteredProducts={this.state.filteredProducts}
+                    allProducts={this.state.filteredProducts}
+                    userProducts={this.state.userProducts}
+                    sideBarShow={this.state.sideBarShow}
+                    showDivShow={this.state.showDivShow}
+                  />
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       );
     }
@@ -145,6 +191,7 @@ export default class App extends Component {
               path={"/"}
               render={(props) => (
                 <Home
+                setShowDiv={this.setShowDiv}
                   {...props}
                   showUserSideBar={this.showUserSideBar}
                   showProductSideBar={this.showProductSideBar}
@@ -168,7 +215,6 @@ export default class App extends Component {
             />
           </Switch>
         </BrowserRouter>
-        <h1> {this.state.user.email} is logged in!</h1>
         {this.renderShowIfLoggedIn()}
       </div>
     );

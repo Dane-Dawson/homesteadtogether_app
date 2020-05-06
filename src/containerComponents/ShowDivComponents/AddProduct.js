@@ -37,56 +37,70 @@ export default class AddProduct extends Component {
       description: this.state.description,
       tags: this.state.tags,
       img_src: this.state.img_src,
-      user_id: this.props.user.id
+      user_id: this.props.user.id,
+      active: true
     };
     fetch("http://localhost:3001/user_products", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json;charset=utf-8",
-        },
-        body: JSON.stringify(userProductObject),
-      });
-      window.alert("Product submitted!")
-
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json;charset=utf-8",
+      },
+      body: JSON.stringify(userProductObject),
+    });
+    window.alert("Product submitted!");
+    this.props.setShowDiv("FARM_INFO")
+    this.props.fetchAllProducts()
+    this.props.sortUserProductsOwned()
   };
 
   //conditioally render of list of all previously created products fed from app state rawProducts, or toggle the form to create a new product if it's not listed
   renderRawProducts = () => {
     if (this.state.showRawProducts === true) {
       return (
-        <form>
-          <select value={this.state.value} onChange={this.handleProductSelect}>
-            <option>Select From below!</option>
-            {this.props.rawProducts.map((product) => {
-              let productName = `${product.name}: ${product.origin.name}`;
-              return (
-                <option
-                  name={product.name}
-                  key={product.id}
-                  category={product.category.name}
-                  origin={product.origin.name}
-                  value={product.id}
-                >
-                  {productName}
-                </option>
-              );
-            })}
-          </select>
-        </form>
+        <div className="form">
+          <h3>
+            Check the existing items carefully to see if what you are offering
+            already exists in our database please!
+          </h3>
+          <br></br>
+          <form>
+            <select
+              value={this.state.value}
+              onChange={this.handleProductSelect}
+            >
+              <option>Select From below!</option>
+              {this.props.rawProducts.map((product) => {
+                let productName = `${product.name}: ${product.origin.name}`;
+                return (
+                  <option
+                    name={product.name}
+                    key={product.id}
+                    category={product.category.name}
+                    origin={product.origin.name}
+                    value={product.id}
+                  >
+                    {productName}
+                  </option>
+                );
+              })}
+            </select>
+          </form>
+          <br></br>
+          <h3>
+            Otherwise, click the button below to add your product to the list.
+          </h3>
+          <br></br>
+        </div>
       );
     } else {
       //form to create new product
       return (
-        <div>
+        <div className="form">
           <form onSubmit={this.handleProductCreation}>
-            <h4>
-              Check the existing items carefully to see if what you are offering
-              already exists in our database please!
-            </h4>
             <br></br>
             <p>
               Product name is what the actual item/service is called. Examples:
-              Eggs, Tomatos, Canned Peaches, Wool, etc.
+              Eggs, Tomatos, Raw Wool, etc.
             </p>
             <input
               type="product"
@@ -115,14 +129,6 @@ export default class AddProduct extends Component {
                 );
               })}
             </select>
-            {/* <input
-              type="origin"
-              name="origin"
-              placeholder="Product origin"
-              value={this.state.origin}
-              onChange={this.handleChange}
-              required
-            /> */}
             <br></br>
             <p>Choose from one of our categories below</p>
             <select
@@ -147,9 +153,15 @@ export default class AddProduct extends Component {
               After adding to the database you can choose your option from the
               drop down
             </p>
-            <button type="submit" onClick={() => this.processNewProduct()}>
+            <button
+              className="addproduct"
+              type="submit"
+              onClick={() => this.processNewProduct()}
+            >
               Add product to database!
             </button>
+            <br></br>
+            <br></br>
           </form>
         </div>
       );
@@ -237,14 +249,14 @@ export default class AddProduct extends Component {
         category_id: this.state.category.id,
       }),
     });
-    this.props.fetchRawProducts
-    this.setState({
-        product: {
-            name:this.state.product,
-            id: this.props.rawProducts.length+1
-        }
-    })
-    window.alert("Product has been added!")
+    this.props.fetchRawProducts;
+    // this.setState({
+    //   product: {
+    //     name: this.state.product,
+    //     id: this.props.rawProducts.length + 1,
+    //   },
+    // });
+    window.alert("Product has been added!");
   };
   //Put new product into form
   loadRawProductDataIntoForm = () => {
@@ -279,55 +291,62 @@ export default class AddProduct extends Component {
 
   render() {
     return (
-      <div>
-        <button onClick={() => this.toggleRawProducts()}>
-          {this.state.showRawProducts
-            ? "Click here to create product from scratch"
-            : "Click here to look at previously submitted products"}
-        </button>
-        <br></br>
-        {this.renderRawProducts()}
-        <br></br>
-        <form onSubmit={this.submitUserProduct}>
-          <h3> Use the form below to fill out more details</h3>
-          <p>
-            Write a brief description about what you have! It could be
-            information about where it came from or anything fun or interesting
-            about it
-          </p>
-          <textarea
-            type="descriptin"
-            name="description"
-            placeholder="Description"
-            value={this.state.description}
-            onChange={this.handleChange}
-            required
-          />
-          <br></br>
-          <p>Link to an image you have uploaded somewhere of it!</p>
-          <input
-            type="img_src"
-            name="img_src"
-            placeholder="URL of image"
-            value={this.state.img_src}
-            onChange={this.handleChange}
-            required
-          />
-          <br></br>
-          <p>List any tags separated by commas</p>
-          <input
-            type="tags"
-            name="tags"
-            placeholder="Tags"
-            value={this.state.tags}
-            onChange={this.handleChange}
-            required
-          />
-          <br></br>
-          <button type="submit" onClick={() => this.submitUserProduct()}>
-            Add product to your farm!
+      <div className="form">
+        <div className="form">
+          {this.renderRawProducts()}
+
+          <button
+            className="addproduct"
+            onClick={() => this.toggleRawProducts()}
+          >
+            {this.state.showRawProducts
+              ? "Create product from scratch"
+              : "View previously submitted products"}
           </button>
-        </form>
+          <br></br>
+          <br></br>
+          <br></br>
+        </div>
+        <div>
+          <form onSubmit={this.submitUserProduct}>
+            <h3> Use the form below to fill out more details</h3>
+            <p>Write a brief description about your product!</p>
+            <textarea
+              type="descriptin"
+              name="description"
+              placeholder="Description"
+              value={this.state.description}
+              onChange={this.handleChange}
+            />
+            <br></br>
+            <p>Link to an image of it!</p>
+            <input
+              type="img_src"
+              name="img_src"
+              placeholder="URL of image"
+              value={this.state.img_src}
+              onChange={this.handleChange}
+            />
+            <br></br>
+            <p>List any tags separated by commas</p>
+            <input
+              type="tags"
+              name="tags"
+              placeholder="Tags"
+              value={this.state.tags}
+              onChange={this.handleChange}
+            />
+            <br></br>
+            <br></br>
+            <button
+              type="submit"
+              className="addproduct"
+              id="addproduct"
+            >
+              Add product to your farm!
+            </button>
+          </form>
+        </div>
       </div>
     );
   }

@@ -16,6 +16,18 @@ export default class EditProfile extends Component {
     };
   }
 
+  loadDefaultValues = () => {
+    this.setState({
+      email: this.props.user.email,
+      avatar_src: this.props.user.avatar_src,
+      zip_code: this.props.user.zip_code,
+      farm_name: this.props.user.farm_name,
+      street_address: this.props.user.street_address,
+      city: this.props.user.city,
+      name: this.props.user.name,
+    })
+  }
+
   //set state to every change
   handleChange = (event) => {
     this.setState({
@@ -23,28 +35,9 @@ export default class EditProfile extends Component {
     });
   };
 
-  createUserUpdateObject = (user) => {
-    const userUpdateObject = {
-      email,
-      avatar_src,
-      zip_code,
-      farm_name,
-      street_address,
-      city,
-      name,
-    };
-
-    userUpdateObject.map((attribute) => {
-      let value = this.state[attribute];
-      if (value < 1) {
-        [attribute].value = this.props.user[attribute];
-      } else {
-        [attribute].value = this.state[attribute];
-      }
-    });
-
-    console.log(userUpdateObject);
-  };
+  componentDidMount(){
+    this.loadDefaultValues()
+  }
 
   updateUserState = (userObject) => {
     let nestedUserObject = {
@@ -95,13 +88,32 @@ export default class EditProfile extends Component {
     this.props.setShowDiv("FARM_INFO")
   };
 
+  deleteUser = () => {
+    let userId = this.props.user.id
+    let postObject = {
+      method: "DELETE"
+    };
+    if (window.confirm("Are you sure you want to delete your account?")){
+      axios
+      .delete("http://localhost:3001/logout", { withCredentials: true })
+      .then((response) => {
+        this.props.handleLogout();
+      })
+      .catch((error) => {
+        console.log("logout error", error);
+      });
+    fetch("http://localhost:3001/users/" + userId, postObject);}
+  }
+
   render() {
     return (
-      <div>
+      <div >
         EditProfile
         <h2>Fill out the form with fields you want to update</h2>
         <p>---</p>
-        <form onSubmit={this.handleSubmit}>
+        <form onSubmit={this.handleSubmit} className="editform">
+        <label>Email address</label>
+        <br></br>
           <input
             type="email"
             name="email"
@@ -110,6 +122,8 @@ export default class EditProfile extends Component {
             onChange={this.handleChange}
           />
           <br></br>
+          <label>Your Name</label>
+        <br></br>
           <input
             type="name"
             name="name"
@@ -118,6 +132,8 @@ export default class EditProfile extends Component {
             onChange={this.handleChange}
           />
           <br></br>
+          <label>URL of a picture of you or your farm</label>
+        <br></br>
           <input
             type="avatar_src"
             name="avatar_src"
@@ -126,6 +142,8 @@ export default class EditProfile extends Component {
             onChange={this.handleChange}
           />
           <br></br>
+          <label>Farm name</label>
+        <br></br>
           <input
             type="farm_name"
             name="farm_name"
@@ -134,6 +152,8 @@ export default class EditProfile extends Component {
             onChange={this.handleChange}
           />
           <br></br>
+          <label>Street address</label>
+        <br></br>
           <input
             type="street_address"
             name="street_address"
@@ -142,6 +162,8 @@ export default class EditProfile extends Component {
             onChange={this.handleChange}
           />
           <br></br>
+          <label>City</label>
+        <br></br>
           <input
             type="city"
             name="city"
@@ -150,6 +172,8 @@ export default class EditProfile extends Component {
             onChange={this.handleChange}
           />
           <br></br>
+          <label>Zip code</label>
+        <br></br>
           <input
             type="zip_code"
             name="zip_code"
@@ -158,8 +182,12 @@ export default class EditProfile extends Component {
             onChange={this.handleChange}
           />
           <br></br>
-          <button type="submit">Update</button>
+          <br></br>
+          <button className="updatefarm" type="submit">Update</button>
         </form>
+        <br></br>
+        <br></br>
+        <button className="deleteaccount" onClick={() => this.deleteUser()}>Delete your account</button>
       </div>
     );
   }
