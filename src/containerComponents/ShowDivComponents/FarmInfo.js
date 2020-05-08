@@ -12,16 +12,22 @@ export default class FarmInfo extends Component {
       }
     }
     
+    conditionPhotorender = () => {
+      if (this.props.user.avatar_src) {
+        return ( <img src={this.props.user.avatar_src} height="150px"></img>)
+      }
+    }
 
     render() {
         return (
-            <div >
+            <div className="farminfobox">
             <p>Welcome to</p>
+            {this.conditionPhotorender()}
             <h1 className="farmname">{this.props.user.farm_name}!</h1>
             <p>Owned and operated by {this.props.user.name}</p>
 
             <p>Your address is stored privately and will never be shared without your permission</p>
-            <p>We highly recommend you at least put in your zipcode to locate other users near you easier</p>
+            <p>We highly recommend including a zip code for ease of finding nearby farms and partnerships</p>
             <br></br>
             <br></br>
             <p>Currently, we have your address as:</p>

@@ -2,16 +2,16 @@ import React, { Component } from "react";
 import ItemDetails from "./ItemDetails";
 import axios from "axios";
 
-import categoryDairy from "./categoryImages/categoryDairy.png";
-import categoryFiber from "./categoryImages/categoryFiber.png";
-import categoryGuidance from "./categoryImages/categoryGuidance.png";
-import categoryHandmade from "./categoryImages/categoryHandmade.png";
-import categoryInfrastructure from "./categoryImages/categoryInfrastructure.png";
-import categoryLivestock from "./categoryImages/categoryLivestock.png";
-import categoryOther from "./categoryImages/categoryOther.png";
-import categoryPoultry from "./categoryImages/categoryPoultry.png";
-import categoryPreserves from "./categoryImages/categoryPreserves.png";
-import categoryProduce from "./categoryImages/categoryProduce.png";
+// import categoryDairy from "./categoryImages/categoryDairy.png";
+// import categoryFiber from "./categoryImages/categoryFiber.png";
+// import categoryGuidance from "./categoryImages/categoryGuidance.png";
+// import categoryHandmade from "./categoryImages/categoryHandmade.png";
+// import categoryInfrastructure from "./categoryImages/categoryInfrastructure.png";
+// import categoryLivestock from "./categoryImages/categoryLivestock.png";
+// import categoryOther from "./categoryImages/categoryOther.png";
+// import categoryPoultry from "./categoryImages/categoryPoultry.png";
+// import categoryPreserves from "./categoryImages/categoryPreserves.png";
+// import categoryProduce from "./categoryImages/categoryProduce.png";
 
 export default class ItemTile extends Component {
   constructor(props) {

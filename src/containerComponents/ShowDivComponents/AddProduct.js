@@ -172,6 +172,7 @@ export default class AddProduct extends Component {
   componentDidMount() {
     this.fetchCategories();
     this.fetchOrigins();
+    this.props.fetchRawProducts();
   }
 
   fetchCategories = () => {
@@ -249,7 +250,8 @@ export default class AddProduct extends Component {
         category_id: this.state.category.id,
       }),
     });
-    this.props.fetchRawProducts;
+    // this.props.fetchRawProducts;
+    this.props.setShowDiv("FARM_INFO")
     // this.setState({
     //   product: {
     //     name: this.state.product,
@@ -258,6 +260,7 @@ export default class AddProduct extends Component {
     // });
     window.alert("Product has been added!");
   };
+
   //Put new product into form
   loadRawProductDataIntoForm = () => {
     this.setState({

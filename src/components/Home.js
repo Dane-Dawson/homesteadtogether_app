@@ -44,8 +44,7 @@ export default class Home extends Component {
         <div>
           <img src={landingLogo} className="logolanding"></img>
           <h2 className="landingmessage">
-            A community for those who grow, raise, or make their own goods to
-            meet and exchange with other like minded people.
+            A community of makers for the exchange of home-made and home-grown goods!
           </h2>
         </div>
       );
@@ -86,7 +85,7 @@ export default class Home extends Component {
                     onClick={() => this.props.showUserSideBar()}
                     className="topbutton"
                   >
-                    <h3>View your farm</h3>
+                    <h3 className="topbuttontext">View your farm</h3>
                   </button>{" "}
                 </td>
                 {/* {this.chickenIcon()}</td> */}
@@ -95,7 +94,7 @@ export default class Home extends Component {
                     onClick={() => this.props.showProductSideBar()}
                     className="topbutton"
                   >
-                    <h3>View all listed products</h3>
+                    <h3 className="topbuttontext">View listings from all farms</h3>
                   </button>
                 </td>
                 {/* {this.farmIcon()}</td> */}

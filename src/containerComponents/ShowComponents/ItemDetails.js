@@ -78,6 +78,7 @@ export default class ItemDetails extends Component {
               <th>
                 <p>{this.props.product.description}</p>
                 <h3>Sourced from:</h3>
+                <p>{this.props.product.user.farm_name}</p>
                 <p>{this.props.product.user.city}</p>
                 {this.renderActiveState()}
                 <br></br>
@@ -89,6 +90,8 @@ export default class ItemDetails extends Component {
                 >
                   Report listing
                 </button>
+                <br></br>
+                <br></br>
                 {this.showFlagMessage()}
               </th>
             </tr>

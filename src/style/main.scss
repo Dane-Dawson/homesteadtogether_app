@@ -46,6 +46,9 @@ h3.productbar {
   color: #f5ffc6;
   font-size: 20px;
 }
+h3.topbuttontext{
+  font-style: normal;
+}
 
 #maintable {
   background-color: #e8e8e8;
@@ -57,8 +60,8 @@ h3.productbar {
   width: 90%;
   min-width: 700px;
   max-width: 900px;
-  max-height: 383px;
-  min-height: 383px;
+  // max-height: 500px;
+  // min-height: 383px;
 }
 
 #sidebar {
@@ -75,6 +78,7 @@ h3.productbar {
 }
 
 ​ #content {
+  overflow: scroll;
   margin-left: 20px;
   margin: 30px;
   padding: 10px 10px 10px 10px;
@@ -105,6 +109,9 @@ table.topbar {
   margin-right: auto;
 }
 
+.farminfobox {
+  padding-left: 10px;
+}
 .centerstyle {
   display: block;
   margin-left: auto;
@@ -160,6 +167,7 @@ table.topbar {
 }
 
 .reportbutton {
+  background-color: #a4cde8;
   width: 100px;
   padding: 5px;
   box-shadow: 0 1px 1px 0 #5b4e46, 0 1px 1px 0 #5b4e46;
@@ -289,7 +297,7 @@ button.toggleinactive {
 }
 
 button.toggleactive {
-  background-color: #bbc8ca;
+  background-color: #d97373;
   border-radius: 3px;
   // border: 2px solid whitesmoke;
   padding: 5px;
